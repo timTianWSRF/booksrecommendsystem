@@ -1,0 +1,363 @@
+
+<!doctype html>
+<html lang="zxx" style="height: 100%">
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Title -->
+		<title>Road</title>
+
+		<!-- Favicon -->
+		<link rel="icon" href="#" type="image/x-icon" />
+
+		<!-- Include CSS -->
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/owl-carousel/owl.carousel.css">
+		<link rel="stylesheet" type="text/css" href="/static/owl-carousel/owl.theme.css">
+		<link rel="stylesheet" type="text/css" href="/static/owl-carousel/owl.transitions.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+		<!--<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,400i,700,800" rel="stylesheet">--->
+
+	</head>
+
+	<body style="height: 100%">
+
+		<!-- Loader -->
+		<div id="loader" class="loader">
+			<div class="loader-content">
+				<img src="/static/imgs/loader.png" alt="Loading...">
+			</div>
+		</div>
+
+		<!-- Header container -->
+<div class="header-bg" style="background-image: url('/static/imgs/top.jpg')">
+    <ul class="nav nav-pills">
+
+            {% if not userinfo.user %}
+        <li role="presentation"><a ><b>Welcome,</b> <span>游客 </span></a></li>
+                {%  else %}
+                      <li role="presentation"><a href="/logout/">退出</a></li>
+                      <li role="presentation"><a ><b>Welcome,</b> <span>{{ userinfo.user }} </span></a></li>
+
+            {% endif %}
+
+
+    </ul>
+</div>
+
+		<!-- Page container -->
+		<div class="inner-content">
+			<div class="container">
+
+				<!-- Breadcrumb -->
+				<div class="row">
+					<div class="col-sm-12">
+						<ol class="breadcrumb">
+							<li>
+								<a href="/home/">Home</a>
+							</li>
+
+							<li class="active">
+								BookDetail
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">
+
+						<!-- Picture Name -->
+						<h4 class="title">
+							{{ book.book_title }}
+						</h4>
+
+						<div class="line-dec"></div>
+
+						<!-- Category description -->
+						<p class="description"><small>
+                        {{ book.original_title }}
+                        </small></p>
+
+						<!-- separator -->
+						<hr>
+
+						<div class="row">
+							<!-- Picture -->
+							<div class="col-sm-2">
+								<img width="150" height="225" src="{{ book.image_url }}" class="img-responsive" alt="Photo">
+
+                                {% if not userinfo.user %}
+                                <a href="/login?next={{ book.book_id }}"> 登陆</a>后即可评价此书
+                                {% else %}
+                                评价此书：
+
+                                   <div id="myRate_star"></div>
+
+                                    {% endif %}
+							</div>
+
+							<!-- Description table -->
+							<div class="col-sm-6">
+
+								<table class="table picture-desc" frame="void">
+
+
+									<tbody>
+										<tr>
+											<td><span class="">by</span></td>
+											<td class="sizes"><b><small>{{ book.book_author }}</small></b></td>
+
+										</tr>
+
+                                        <tr>
+											<td><span class="badge">评分</span></td>
+											<td class="sizes">
+                                                <div id="rate_star" style="float: left"></div>
+                                                <div style="float: left;margin-right: 10px">{{ book.average_rating}}</div>
+                                                <div style="float: left;margin-right: 10px">评分次数:{{ book.ratings_count}}</div>
+
+                                            </td>
+
+										</tr>
+
+										<tr>
+											<td><span class="badge">简介</span></td>
+											<td class="sizes">
+                                                How Smart Is Your Dog?<br>
+
+If you've ever wondered what is really going on inside your dog's head, here is your chance to find out. In this revised and updated version of this perennially popular book, psychologist and prizewinning trainer Stanley Coren provides a startling view of the intelligence of our oldest and closest animal companions.
+                                            </td>
+										</tr>
+                                                               <tr>
+											<td><span class="badge">出版时间</span></td>
+											<td class="sizes">{{ book.publication_year}}</td>
+
+										</tr>
+										<tr>
+											<td><span class="badge">ISBN</span></td>
+											<td class="sizes">{{ book.isbn }}
+
+                                            </td>
+
+										</tr>
+										<tr>
+											<td><span class="badge">语言</span></td>
+											<td class="sizes">{{ book.language_code}}</td>
+
+										</tr>
+
+									</tbody>
+								</table>
+
+								<!-- actions -->
+								<div class="row">
+									<div class="col-sm-4">
+										<a href="#" class="btn btn-block btn-success"><i class="fa fa-download" aria-hidden="true"></i> 想读</a>
+									</div>
+									<div class="col-sm-4">
+										<a href="#" class="btn btn-block btn-primary"><i class="fa fa-cart-plus" aria-hidden="true"></i> 已读</a>
+									</div>
+									<div class="col-sm-4">
+										<a href="#" class="btn btn-block btn-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 评论</a>
+									</div>
+								</div>
+
+							</div>
+
+                            							<!-- Description table -->
+							<div class="col-sm-4" style="height: 100%">
+
+                                <div id="container" style="height: 300px"></div>
+
+
+							</div>
+
+						</div>
+
+						<!-- separator -->
+						<hr>
+
+						<!-- Similar photos row -->
+						<div class="row">
+							<div class="col-sm-12">
+								<h4 class="title">相似书籍</h4>
+								<div class="line-dec"></div>
+
+								<!-- Recent photos carousel -->
+								<div id="recent-photos">
+
+                                    <!-- Recent photo (item) -->
+
+                {% if not simlist.values %}
+                    本书评价过少，暂无相似推荐！<br><br>
+
+                {% else %}
+
+                                    {% for item in simlist.values %}
+
+                                        <div class="item"  ><a style=" text-decoration: none;color: #444; " href="/bookdetail/{{ item.bookId }}/">
+                                         <img height="145px" width="98px" src="{{ item.imgurl }}">{{ item.bookTitle }}</a>
+                                        </div>
+
+                                    {% endfor %}
+
+                {% endif %}
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<!-- Include Scripts -->
+		<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/owl-carousel/owl.carousel.min.js"></script>
+		<script type="text/javascript" src="/static/js/main.js"></script>
+        <script type="text/javascript" src="/static/js/star.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.raty.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.raty.min.js.js"></script>
+
+
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+
+
+        <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+var data = {{ ratelist|safe }}
+option = null;
+app.title = '评分统计';
+
+option = {
+    title: {
+        text: '评分统计',
+        subtext: 'good-reads'
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        data: [ 'rate']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: ['一星','二星','三星','四星','五星']
+    },
+    series: [
+
+        {
+            name: 'rate',
+            type: 'bar',
+            data: data
+        }
+    ]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+
+</script>
+
+
+<script type="text/javascript" >
+
+   $(function() {
+    $.fn.raty.defaults.path = '/static/js/img';
+
+
+       var rate = {{ book.average_rating|safe }}
+       $('#rate_star').raty({
+           readOnly: true,
+           score: rate,
+
+       });
+
+
+       var bookid = {{ book.book_id|safe }};
+       var userid = {{ userinfo.userid|safe }};
+       var myrate = {{ myRate|safe }}
+
+       $('#myRate_star').raty({
+
+           score: myrate,
+           targetType: 'hint',
+           hints: ['烂的一批', '一般般', '还不错', '佳作', '就是神作'],
+           cancel: true,
+           cancelHint: '取消评分',
+
+
+  click: function(score, evt) {
+
+
+    $.ajax({
+    url: "/rate/",
+    data: {"userid": userid,
+            "bookid":bookid,
+            "rate":score
+
+            },
+    dataType: "json",
+    success: function (data) {
+
+                var callback_dic = data;
+                if(callback_dic.status){
+                    if(score == null) {
+                        alert('删除成功');
+                    }
+                    else{
+                    alert('score: ' + score +'\n评分成功');
+                    }
+
+                 }else{
+                    alert(callback_dic.error); //把错误的信息从后台提出展示出来
+                }
+
+    }
+})
+
+  }
+
+});
+
+
+   });
+</script>
+
+	</body>
+</html>

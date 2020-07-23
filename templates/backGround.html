@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台训练</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-grid.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-reboot.css" %}">
+    <link rel="stylesheet" href="{% static "js/bootstrap.bundle.js" %}">
+</head>
+<body class="row bg">
+<form method="post" action="/background/">
+<table class="table table-hover table-bordered table-striped table-active col-md-offset-4"><tr><td>
+<div class="h2">训练预测模型</div><br>
+    <input type="text" name="id_num" class="form-control"><br>
+    <input type="radio" name="choice" value="id" checked>训练此用户<br>
+    <input type="radio" name="choice" value="num">训练更新用户<br>
+    <input type="radio" name="choice" value="all">训练所有人（巨长时间，一般勿点）<br><br>
+    选择训练预测模型：<br>
+    <input type="checkbox" id="model">k-means<br>
+    <input type="checkbox" id="model">svd<br>
+    <input type="checkbox" id="model">knn<br>
+        <input class="btn btn-primary" type="submit" value="开始训练"><br><br><br>
+</td></tr></table>
+    <table class="table table-hover table-bordered table-striped table-active col-md-offset-4"><tr><td>
+    <div class="h5">图书信息管理系统</div>
+    <div>
+    <a href="/admin/"><input class="btn btn-primary" value="进入"></a>
+    </td></tr><br></table><table class="table table-hover table-bordered table-striped table-active col-md-offset-4"><tr><td>
+    </div><div>
+    <a href="/index/"><input class="btn btn-primary" value="上传图片到人脸识别库"></a>
+    </div></td></tr></table>
+</form>
+</body>
+</html>

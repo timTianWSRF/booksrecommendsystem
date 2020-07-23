@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="/static/css/login.css" rel="stylesheet"/>
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <style>
+        body {
+        background-image: url('/static/imgs/bg.jpg');
+            background-repeat: no-repeat;
+        {#    background-position: center top;#}
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<div class="Card SignContainer-content">
+    <div class="SignFlowHeader" style="padding-bottom:5px">
+        <div class="SignFlowHeader-slogen"><!-- --> 骚年,你渴望力量吗</div>
+    </div>
+    <div class="SignContainer-inner">
+        <div class="Login-content">
+            <form novalidate="" class="SignFlow" data-za-detail-view-path-module="SignInForm"
+                  data-za-extra-module="{&quot;card&quot;:{&quot;content&quot;:null}}" action="/login/" method="post">
+                {% csrf_token %}
+                <div class="SignFlow-account">
+                    <div class="SignFlow-supportedCountriesSelectContainer"></div>
+                    <div class="SignFlowInput SignFlow-accountInputContainer">
+                        <div class="SignFlow-accountInput Input-wrapper"><input name="username" type="text"
+                                                                                class="Input" placeholder="手机号或邮箱"
+                                                                                value=""></div>
+                        <div class="SignFlowInput-errorMask SignFlowInput-requiredErrorMask SignFlowInput-errorMask--hidden"></div>
+                    </div>
+                </div>
+                <div class="SignFlow-password">
+                    <div class="SignFlowInput">
+                        <div class="Input-wrapper"><input name="password" type="password" class="Input" placeholder="密码"
+                                                          value=""></div>
+                        <div class="SignFlowInput-errorMask SignFlowInput-requiredErrorMask SignFlowInput-errorMask--hidden"></div>
+                    </div>
+
+                </div>
+                <div class="Login-options">
+                    <button type="button" class="Button Login-switchType Button--plain"></button>
+                    <button type="button" class="Button Login-cannotLogin Button--plain">忘记密码？</button>
+                </div>
+                <button type="submit" class="Button SignFlow-submitButton Button--primary Button--green">渴望</button>
+            </form>
+        </div>
+        <div class="SignContainer-switch">没有帐号？
+            <span ><a  href="/register/">注册  </a>
+                <a  href="/home/">  不,我随便看看   </a>
+            <a  href="/camera/">  人脸识别，进入管理系统</a></span>
+        </div>
+        <div class="SignFlowHomepage-qrImage SignFlowHomepage-qrImageHidden">
+            <div></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

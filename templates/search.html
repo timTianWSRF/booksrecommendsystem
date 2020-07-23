@@ -1,0 +1,254 @@
+﻿<!doctype html>
+<html lang="zxx">
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Title -->
+		<title>搜索结果</title>
+
+		<!-- Favicon -->
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+		<!-- Include CSS -->
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/owl-carousel/owl.carousel.css">
+		<link rel="stylesheet" type="text/css" href="/static/owl-carousel/owl.theme.css">
+		<link rel="stylesheet" type="text/css" href="/static/owl-carousel/owl.transitions.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+		<!--<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,400i,700,800" rel="stylesheet">--->
+
+	</head>
+
+	<body>
+
+
+		<!-- Loader -->
+		<div id="loader" class="loader">
+			<div class="loader-content">
+				<img src="/static/imgs/loader.png" alt="Loading...">
+			</div>
+		</div>
+
+<!-- Header container -->
+<div class="header-bg" style="background-image: url('/static/imgs/top.jpg')">
+    <ul class="nav nav-pills">
+
+            {% if not userinfo.user %}
+        <li role="presentation"><a ><b>Welcome,</b> <span>游客 </span></a></li>
+                {%  else %}
+                      <li role="presentation"><a href="/logout/">退出</a></li>
+                      <li role="presentation"><a ><b>Welcome,</b> <span>{{ userinfo.user }} </span></a></li>
+
+            {% endif %}
+
+
+    </ul>
+</div>
+
+
+		<!-- Page container -->
+		<div class="inner-content">
+			<div class="container">
+
+				<!-- Breadcrumb -->
+				<div class="row">
+					<div class="col-sm-12">
+						<ol class="breadcrumb">
+							<li>
+								<a href="/home/">Home</a>
+							</li>
+							<li class="active">
+								Search
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<!-- List & sidebar -->
+				<div class="row">
+
+					<!-- List -->
+					<div class="col-sm-8 col-md-9">
+
+						<!-- Category Name -->
+						<h4 class="title">
+							Result
+							<!-- Total photos in category -->
+							<small>({{ len }} books)</small>
+						</h4>
+
+						<div class="line-dec"></div>
+
+
+
+
+						<!-- Photos list -->
+
+                        {% for result in searchlist.values %}
+                            <!-- photo list item -->
+						<div class="media photo-list">
+							<!-- photo item image -->
+							<div class="media-left">
+								<a href="/bookdetail/{{ result.bookId }}/">
+									<img src="{{ result.imgurl }}" class="media-object photo-list-image" alt="List photo">
+								</a>
+							</div>
+							<!-- photo item body -->
+							<div class="media-body">
+								<div class="row">
+									<!-- Description column -->
+									<div class="col-sm-8">
+										<h4 class="media-heading photo-list-title">
+                                             <a style=" text-decoration: none;color: #444; " href="/bookdetail/{{ result.bookId }}/">
+											{{ result.bookTitle }}  </a><span class="badge">{{ result.author }}</span>
+										</h4>
+										<p class="text-justify photo-list-description">
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+										</p>
+									</div>
+									<!-- Price and actions -->
+									<div class="col-sm-4">
+										<a href="/bookdetail/{{ result.bookId }}/" class="btn btn-block btn-primary">View</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+                        {% endfor %}
+
+
+
+
+
+						<!-- Pagination -->
+						<nav class="text-center">
+							<ul class="pagination">
+								<li>
+									<a href="#" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+									</a>
+								</li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li>
+									<a href="#" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+
+					</div>
+
+					<!-- Sidebar -->
+					<div class="col-sm-4 col-md-3">
+
+						<div class="sidebar-item">
+							<h4 class="title">Search</h4>
+							<div class="line-dec"></div>
+
+							<!-- Search form -->
+							<form class="form-inline" action="/search/" method="post">
+								<div class="form-group">
+									<input name="searchBook"type="text" class="form-control" placeholder="Search...">
+								</div>
+								<button type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
+							</form>
+						</div>
+
+						<div class="sidebar-item">
+							<h4 class="title">Sort by</h4>
+							<div class="line-dec"></div>
+
+							<select class="form-control">
+								<option>Price: lowest first</option>
+								<option>Price: highest first</option>
+								<option>Product Name: A to Z</option>
+								<option>Product Name: Z to A</option>
+							</select>
+						</div>
+
+						<div class="sidebar-item">
+							<h4 class="title">热门分类</h4>
+							<div class="line-dec"></div>
+
+							<ul class="list-group">
+								<li class="list-group-item">
+									<a href="/search/tag/magic/">Magic</a>
+								</li>
+								<li class="list-group-item">
+									<a href="/search/tag/psychology/">Psychology</a>
+								</li>
+								<li class="list-group-item">
+									<a href="/search/tag/Sci-Fi/">Science Fiction</a>
+								</li>
+								<li class="list-group-item">
+									<a href="/search/tag/Fantasy-fiction/">Fantasy Fiction</a>
+								</li>
+							</ul>
+						</div>
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Modal Legal advice -->
+		<div class="modal fade" id="legalModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<h4 class="title">Legal advice</h4>
+						<div class="line-dec"></div>
+						<p class="text-justify">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+							<br><br>
+
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Terms and conditions -->
+		<div class="modal fade" id="termsModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<h4 class="title">Terms and conditions</h4>
+						<div class="line-dec"></div>
+						<p class="text-justify">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+							<br><br>
+
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Include Scripts -->
+		<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/owl-carousel/owl.carousel.min.js"></script>
+		<script type="text/javascript" src="/static/js/main.js"></script>
+
+	</body>
+</html>
+

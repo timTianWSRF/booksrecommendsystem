@@ -1,0 +1,354 @@
+﻿<!doctype html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Home</title>
+
+    <!-- Favicon -->
+
+
+    <!-- Include CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/static/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="/static/owl-carousel/owl.transitions.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+    <!--<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,400i,700,800" rel="stylesheet">--->
+
+</head>
+
+<body>
+
+
+<!-- Loader -->
+<div id="loader" class="loader">
+    <div class="loader-content">
+        <img src="/static/imgs/loader.png" alt="Loading...">
+    </div>
+</div>
+
+<!-- Header container -->
+<div class="header-bg" style="background-image: url('/static/imgs/top.jpg')">
+    <ul class="nav nav-pills">
+
+            {% if not userinfo.user %}
+        <li role="presentation"><a ><b>Welcome,</b> <span>游客 </span></a></li>
+                {%  else %}
+                      <li role="presentation"><a href="/logout/">退出</a></li>
+                      <li role="presentation"><a ><b>Welcome,</b> <span>{{ userinfo.user }} </span></a></li>
+
+            {% endif %}
+
+
+    </ul>
+</div>
+
+
+<!-- Principal image with search -->
+<div class="full-header"  style="background-image: url('/static/imgs/home.jpeg')">
+    <div class="overlay"></div>
+    <div class="search" >
+        <form action="/search/" method="post">
+            <div class="col-md-4">
+            <fieldset>
+            <input name="searchBook" type="text" placeholder="搜索书籍..." class="principal-search" style="border-right:1px solid #ddd">
+                </fieldset>
+                </div>
+            <div class="col-md-4">
+            <fieldset>
+                <input name="searchAuthor" type="text" placeholder="搜索作者..." class="principal-search">
+            </fieldset>
+            </div>
+
+             <div class="col-md-1">
+                                    <fieldset>
+            <button type="submit" class="principal-search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    </fieldset>
+             </div>
+
+        </form>
+    </div>
+    <div class="bottom-text">
+        书海徜徉!
+    </div>
+</div>
+
+<!-- Page container -->
+<div class="inner-content-home">
+    <div class="container">
+
+
+
+        {% if not userinfo.user %}
+        <!-- Information row -->
+        <div class="row">
+
+            <!-- Discount alert -->
+            <div class="col-sm-8">
+                <div class="alert alert-warning" role="alert">更多精彩<b>书籍</b>推送
+                </div>
+            </div>
+
+            <!-- Register button -->
+            <div class="col-sm-4" ><a href="/login/">
+                <button type="submit" class="btn btn-block btn-success register-btn" >登录!</button></a>
+            </div>
+        </div>
+
+        {% endif %}
+
+
+
+
+        <!-- Recent photos row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="title">热门图书</h4>
+                <div class="line-dec"></div>
+
+
+                <!-- Recent photos carousel -->
+                <div id="recent-photos" class="owl-carousel">
+
+                    <!-- Recent photo (item) -->
+
+                    {% for item in hotlist.values %}
+                        <div class="item"  ><a style=" text-decoration: none;color: #444; " href="/bookdetail/{{ item.bookId }}/">
+                         <img height="145px" width="98px" src="{{ item.imgurl }}">{{ item.bookTitle }}</a>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+               <!-- Recent photos row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="title">精彩推荐</h4>
+                <div class="line-dec"></div>
+
+
+                {% if not userinfo.user %}
+                   浏览个性化精彩推荐，<a href="/login/" >请登录</a><br><br>
+
+
+                {% elif not rslist.values %}
+                    您还没有推荐，赶紧多评论一些书籍吧！<br><br>
+
+                {% else %}
+
+
+                <!-- Recent photos carousel -->
+                <div id="rs-photos" class="owl-carousel">
+                    <!-- Recent photo (item) -->
+
+                    {% for item in rslist.values %}
+                        <div class="item"  ><a style=" text-decoration: none;color: #444; " href="/bookdetail/{{ item.bookId }}/">
+                            <img height="145px" width="98px" src="{{ item.imgurl }}">{{ item.bookTitle }}</a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+
+
+
+               <!-- Recent photos row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="title">您的老伙计极力推荐</h4>
+                <div class="line-dec"></div>
+
+                {% if not userinfo.user %}
+                   看看好友正在看什么？<a href="/login/" >请登录</a><br><br>
+
+                {% elif ratingNum <= 10 %}
+                    您的评论过少，赶紧多评论一些书籍吧！<br><br>
+
+               {% else %}
+
+               <!-- Recent photos carousel -->
+                <div id="likeUserBooks" class="owl-carousel">
+                    <!-- Recent photo (item) -->
+
+                    {% for item in simUser_booklist.values %}
+                        <div class="item"  ><a style=" text-decoration: none;color: #444; " href="/bookdetail/{{ item.bookId }}/">
+                            <img height="145px" width="98px" src="{{ item.imgurl }}">{{ item.bookTitle }}</a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+
+                {% endif %}
+                <!-- Recent photos carousel -->
+
+            </div>
+        </div>
+
+
+
+
+
+
+        <!-- Categories -->
+        <div class="row">
+            <div class="col-sm-12" id="#categories">
+                <h4 class="title">热门分类
+                    <small><span class="badge">245.557</span> books in our stock</small>
+                </h4>
+                <div class="line-dec"></div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="category-block" id="architecture">
+                    <a href="/search/tag/Architecture/">
+                        <span>Architecture</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" id="food">
+                    <a href="/search/tag/Food/">
+                        <span>Food</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" id="cars">
+                    <a href="/search/tag/Cars/">
+                        <span>Cars</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" id="landscapes">
+                    <a href="/search/tag/Geography/">
+                        <span>Geography</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="category-block" id="people">
+                    <a href="/search/tag/People/">
+                        <span>People</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="category-block" id="music">
+                    <a href="/search/tag/Music/">
+                        <span>Music</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="category-block" id="technology">
+                    <a href="/search/tag/Technology/">
+                        <span>Technology</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" id="houses">
+                    <a href="/search/tag/Houses/">
+                        <span>Houses</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" id="pets">
+                    <a href="/search/tag/Pets/">
+                        <span>Pets</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="category-block" id="animals">
+                    <a href="/search/tag/Animals/">
+                        <span>Animals</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" id="random">
+                    <a href="/search/tag/Technology/">
+                        <span>Random</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="category-block" id="others">
+                    <a href="/search/tag/Technology/">
+                        <span>Others</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="container">
+    <div id="footer">
+        <div class="row" style="margin-top: 50px">
+        </div>
+    </div>
+</div>
+
+
+<!-- Include Scripts -->
+<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/owl-carousel/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/static/js/main.js"></script>
+
+</body>
+</html>

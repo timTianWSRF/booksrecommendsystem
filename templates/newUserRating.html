@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<div class="waikuang">
+      	    <div class="col-sm-12" style="background-color: #3c8dbc;width: 1366px;height: 50px;color: white">
+				<h3>新人评分</h3>
+			</div>
+
+    <section>
+
+                            <div class="col-sm-12" id="tuijian" >
+                                        <h3>对看过的书进行评价
+                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="/home/" style="text-decoration: underline;color: white">直接进入主页</a></h3><
+                            </div>
+
+        <div class="scroll" style=" border:solid 2px #00c0ef ">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                {% if not userinfo.user %}
+                    请重新登录
+
+                {% else %}
+
+                    {% for item in hotlist.values %}
+                        <div class="col-sm-2">
+
+                            <div class="item"  ><a style=" text-decoration: none;color: #444; " href="/bookdetail/{{ item.bookId }}/">
+                                         <img height="145px" width="98px" src="{{ item.imgurl }}">{{ item.bookTitle }}</a>
+
+                            </div>
+	                    </div>
+                    {% endfor %}
+                {% endif %}
+
+
+
+			    </div>
+		    </div>
+	    </div>
+    </section>
+</div>
+
+   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+   <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="/static/js/main.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.raty.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.raty.min.js.js"></script>
+
+
+    <style type="text/css">
+    .scroll {
+
+        margin-right: 20px;
+        margin-left:20px;
+
+        background-color: white;
+        height: 500px;/*颜色*/
+        font-family: ;                                  /*字体*/
+        padding-left: 10px;                             /*层内左边距*/
+        padding-right: 10px;                            /*层内右边距*/
+                                    /*层内上边距*/
+        padding-bottom: 10px;                           /*层内下边距*/
+                          /*横向滚动条(scroll:始终出现;auto:必要时出现;具体参考CSS文档)*/
+        overflow-y: scroll;                             /*竖向滚动条*/
+
+        scrollbar-face-color: #D4D4D4;                  /*滚动条滑块颜色*/
+        scrollbar-hightlight-color: #ffffff;                /*滚动条3D界面的亮边颜色*/
+        scrollbar-shadow-color: #919192;                    /*滚动条3D界面的暗边颜色*/
+        scrollbar-3dlight-color: #ffffff;               /*滚动条亮边框颜色*/
+        scrollbar-arrow-color: #919192;                 /*箭头颜色*/
+        scrollbar-track-color: #ffffff;                 /*滚动条底色*/
+        scrollbar-darkshadow-color: #ffffff;                /*滚动条暗边框颜色*/
+
+
+
+    }
+    .waikuang{
+
+        position:fixed;
+        width: 1366px;
+        height: 760px;
+        background: #d7dadd;
+
+        padding-bottom: 10px;
+    }
+
+        #tuijian{
+        background-color: #00c0ef;
+            height: 50px;
+
+            color: white;
+            margin-top: 15px;
+            margin-left:20px;
+            width: 1326px;
+        }
+
+        .item {
+    margin: 3px;
+    height: 160px;
+    width: 98px;
+
+            margin:50px auto
+
+
+
+}
+
+
+    </style>
+
+
+</body>
+</html>

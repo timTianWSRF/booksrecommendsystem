@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="/static/css/login.css" rel="stylesheet"/>
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <style>
+        body {
+            background-image: url("/static/imgs/reg.jpg");
+        }
+
+        #fave {
+            -webkit-appearance: none; /* google */
+            -moz-appearance: none; /* firefox */
+            appearance: none; /* IE */
+            width: 60px;
+            text-align: center;
+            text-align-last: center;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="Card SignContainer-content">
+    <div class="Login-content">
+        <form novalidate="" class="SignFlow" data-za-detail-view-path-module="SignInForm"
+              data-za-extra-module="{&quot;card&quot;:{&quot;content&quot;:null}}" action="/register/" method="post">
+
+             {% csrf_token %}
+
+            <div class="SignFlow-account">
+                <div class="SignFlowInput SignFlow-accountInputContainer">
+                    <div class="SignFlow-accountInput Input-wrapper">
+                        {{ registeFrorm.username }} <span>{{ errors.username.0 }}</span>
+                    </div>
+                    <div class="SignFlowInput-errorMask SignFlowInput-requiredErrorMask SignFlowInput-errorMask--hidden"></div>
+                </div>
+            </div>
+            <div class="SignFlow-password">
+                <div class="SignFlowInput">
+                    <div class="Input-wrapper">
+                        {{ registeFrorm.password }} <span>{{ errors.password.0 }}</span>
+                    </div>
+                    <div class="SignFlowInput-errorMask SignFlowInput-requiredErrorMask SignFlowInput-errorMask--hidden"></div>
+                </div>
+
+            </div>
+             <div class="SignFlow-account">
+                <div class="SignFlowInput SignFlow-accountInputContainer">
+                    <div class="SignFlow-accountInput Input-wrapper">
+                        {{ registeFrorm.age }} <span>{{ errors.age.0 }}</span></div>
+                    <div class="SignFlowInput-errorMask SignFlowInput-requiredErrorMask SignFlowInput-errorMask--hidden"></div>
+                </div>
+            </div>
+
+                <div class="SignFlow-account">
+                <div class="SignFlowInput SignFlow-accountInputContainer">
+                    <div class="SignFlow-accountInput Input-wrapper">
+                        {{ registeFrorm.location }} <span>{{ errors.location.0 }}</span>
+                    </div>
+                    <div class="SignFlowInput-errorMask SignFlowInput-requiredErrorMask SignFlowInput-errorMask--hidden"></div>
+                </div>
+            </div>
+            <button type="submit" class="Button SignFlow-submitButton Button--primary Button--green">注册</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
